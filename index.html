@@ -40,6 +40,12 @@
     <article class="card" data-search="percentage calculator percent marks"><div class="emoji">％</div><h3>Percentage Calculator</h3><p>Marks ya kisi bhi number ka percentage nikalo.</p><button class="btn" onclick="openTool('percentage')">Use tool</button></article>
     <article class="card" data-search="word counter character text words"><div class="emoji">📝</div><h3>Word Counter</h3><p>Text ke words, characters aur sentences count karo.</p><button class="btn" onclick="openTool('words')">Use tool</button></article>
     <article class="card" data-search="age calculator birthday date"><div class="emoji">🎂</div><h3>Age Calculator</h3><p>Date of birth se age calculate karo.</p><button class="btn" onclick="openTool('age')">Use tool</button></article>
+    <article class="card" data-search="qr code generator">
+  <div class="emoji">📱</div>
+  <h3>QR Code Generator</h3>
+  <p>Text aur links ka QR code banao.</p>
+  <button class="btn" onclick="openTool('qr')">Use tool</button>
+</article>
   </div>
   <section class="tool-panel" id="panel">
     <h2 id="panelTitle">Tool</h2><div id="panelBody"></div><div class="result" id="result" aria-live="polite"></div>
@@ -60,7 +66,8 @@
     document.querySelectorAll('.card').forEach(c=>c.style.display=(c.innerText+' '+(c.dataset.search||'')).toLowerCase().includes(q)?'':'none');
   }
   function openTool(type){
-    const panel=document.getElementById('panel'), body=document.getElementById('panelBody'), result=document.getElementById('result');
+    const panel=document.getElementById('panel'
+                                       ), body=document.getElementById('panelBody'), result=document.getElementById('result');
     result.textContent=''; panel.style.display='block';
     if(type==='percentage'){
       document.getElementById('panelTitle').textContent='Percentage Calculator';
@@ -68,12 +75,38 @@
     } else if(type==='words'){
       document.getElementById('panelTitle').textContent='Word Counter';
       body.innerHTML='<label>Enter or paste your text</label><textarea id="wordsText" rows="5" placeholder="Type here..."></textarea><button class="btn" onclick="countWords()">Count words</button>';
-    } else {
-      document.getElementById('panelTitle').textContent='Age Calculator';
+ } else if(type==='qr'){
+  document.getElementById('panelTitle').textContent='QR Code Generator';
+  body.innerHTML='<label>Enter text or URL</label><input id="qrText" placeholder="Enter text or URL"><button class="btn" onclick="generateQR()">Generate QR Code</button><div id="qrResult"></div>';
+} else {
+  document.getElementById('panelTitle').textContent='Age Calculator';
       body.innerHTML='<label>Your date of birth</label><input id="dob" type="date"><button class="btn" onclick="calcAge()">Calculate age</button>';
     }
     panel.scrollIntoView({behavior:'smooth',block:'center'});
   }
+
+  function generateQR(){
+    const text=document.getElementById('qrText').value.trim();
+    const result=document.getElementById('qrResult');
+    result.innerHTML='';
+
+    if(!text){
+      result.textContent='Please enter text or URL.';
+      return;
+    }
+
+    if(typeof QRCode==='undefined'){
+      result.textContent='QR library not loaded.';
+      return;
+    }
+
+    new QRCode(result,{
+      text:text,
+      width:180,
+      height:180
+    });
+  }
+
   function calcPercent(){
     const a=Number(document.getElementById('obt').value),b=Number(document.getElementById('total').value);
     if(!document.getElementById('obt').value||!document.getElementById('total').value||b<=0||a<0){document.getElementById('result').textContent='Please enter valid values.';return;}
@@ -95,5 +128,6 @@
     document.getElementById('result').textContent=`Your age: ${y} years, ${m} months and ${d} days.`;
   }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>  
 </body>
 </html>
