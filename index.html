@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online tools, calculators and useful AI websites — simple, fast and free.">
+  <title>ToolNest — Free AI & Online Tools</title>
+  <style>
+    :root{--bg:#f6f8fc;--card:#fff;--ink:#172033;--muted:#64748b;--brand:#5b5ce2;--line:#e6eaf2}
+    *{box-sizing:border-box}body{margin:0;font-family:Arial, sans-serif;background:var(--bg);color:var(--ink)}
+    header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+    .nav{max-width:1100px;margin:auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+    .logo{font-size:23px;font-weight:800;color:var(--brand)}.nav a{color:var(--muted);text-decoration:none;margin-left:16px;font-size:14px}
+    .hero{max-width:1100px;margin:38px auto 22px;padding:38px 22px;text-align:center;background:linear-gradient(135deg,#e9eaff,#f2f7ff);border-radius:22px}
+    .hero h1{font-size:clamp(30px,5vw,48px);margin:0 0 12px}.hero p{color:var(--muted);font-size:17px;margin:0 auto 22px;max-width:620px}
+    .search{width:min(560px,100%);padding:15px 17px;border:1px solid #d9def0;border-radius:12px;font-size:16px;outline:none}
+    main{max-width:1100px;margin:28px auto;padding:0 20px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:30px 0 15px}
+    h2{font-size:24px;margin:0}.hint{color:var(--muted);font-size:13px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 5px 18px #1d2a4408}
+    .card h3{margin:8px 0;font-size:18px}.card p{color:var(--muted);font-size:14px;line-height:1.5;min-height:40px}
+    .emoji{font-size:27px}.btn{display:inline-block;border:0;border-radius:10px;padding:10px 14px;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;cursor:pointer}
+    .tool-panel{margin-top:22px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;display:none}
+    .tool-panel input,.tool-panel textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;margin:8px 0 12px;font-size:15px}
+    .result{font-weight:700;color:var(--brand);margin-top:12px;min-height:22px}
+    footer{text-align:center;color:var(--muted);padding:35px 20px;font-size:13px}
+    @media(max-width:600px){.nav a{margin-left:8px;font-size:12px}.hero{margin:18px 12px;padding:30px 16px}.section-head{align-items:start;flex-direction:column}}
+  </style>
+</head>
+<body>
+<header><div class="nav"><div class="logo">✦ ToolNest</div><nav><a href="#tools">Online Tools</a><a href="#ai">AI Websites</a></nav></div></header>
+<section class="hero">
+  <h1>Useful tools. <span style="color:#5b5ce2">Absolutely free.</span></h1>
+  <p>Roz ke digital kaam aasaan banane ke liye free online tools aur helpful AI websites ek hi jagah.</p>
+  <input class="search" id="search" placeholder="Search a tool..." oninput="filterCards()">
+</section>
+<main>
+  <div class="section-head" id="tools"><h2>Free Online Tools</h2><span class="hint">No sign-up required for these tools</span></div>
+  <div class="grid" id="toolGrid">
+    <article class="card" data-search="percentage calculator percent marks"><div class="emoji">％</div><h3>Percentage Calculator</h3><p>Marks ya kisi bhi number ka percentage nikalo.</p><button class="btn" onclick="openTool('percentage')">Use tool</button></article>
+    <article class="card" data-search="word counter character text words"><div class="emoji">📝</div><h3>Word Counter</h3><p>Text ke words, characters aur sentences count karo.</p><button class="btn" onclick="openTool('words')">Use tool</button></article>
+    <article class="card" data-search="age calculator birthday date"><div class="emoji">🎂</div><h3>Age Calculator</h3><p>Date of birth se age calculate karo.</p><button class="btn" onclick="openTool('age')">Use tool</button></article>
+  </div>
+  <section class="tool-panel" id="panel">
+    <h2 id="panelTitle">Tool</h2><div id="panelBody"></div><div class="result" id="result" aria-live="polite"></div>
+  </section>
+  <div class="section-head" id="ai"><h2>Helpful AI Websites</h2><span class="hint">External websites — their own terms may apply</span></div>
+  <div class="grid" id="aiGrid">
+    <article class="card" data-search="chatgpt writing answers ideas"><div class="emoji">🤖</div><h3>ChatGPT</h3><p>Writing, learning, brainstorming aur questions ke liye.</p><a class="btn" href="https://chatgpt.com/" target="_blank" rel="noopener">Visit website ↗</a></article>
+    <article class="card" data-search="canva design presentation poster"><div class="emoji">🎨</div><h3>Canva</h3><p>Posters, presentations aur designs banane ke liye.</p><a class="btn" href="https://www.canva.com/" target="_blank" rel="noopener">Visit website ↗</a></article>
+    <article class="card" data-search="remove background image editing"><div class="emoji">🖼️</div><h3>Adobe Express</h3><p>Quick graphic design aur image editing ke liye.</p><a class="btn" href="https://www.adobe.com/express/" target="_blank" rel="noopener">Visit website ↗</a></article>
+  </div>
+  <p class="hint" style="margin-top:24px">Note: ToolNest ke built-in tools browser mein kaam karte hain. AI websites ke links third-party services par le jaate hain; hum unke owner nahi hain.</p>
+</main>
+<footer>© <span id="year"></span> ToolNest · Made to make everyday tasks easier</footer>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  function filterCards(){
+    const q=document.getElementById('search').value.toLowerCase();
+    document.querySelectorAll('.card').forEach(c=>c.style.display=(c.innerText+' '+(c.dataset.search||'')).toLowerCase().includes(q)?'':'none');
+  }
+  function openTool(type){
+    const panel=document.getElementById('panel'), body=document.getElementById('panelBody'), result=document.getElementById('result');
+    result.textContent=''; panel.style.display='block';
+    if(type==='percentage'){
+      document.getElementById('panelTitle').textContent='Percentage Calculator';
+      body.innerHTML='<label>Obtained value</label><input id="obt" type="number" placeholder="e.g. 425"><label>Total value</label><input id="total" type="number" placeholder="e.g. 500"><button class="btn" onclick="calcPercent()">Calculate</button>';
+    } else if(type==='words'){
+      document.getElementById('panelTitle').textContent='Word Counter';
+      body.innerHTML='<label>Enter or paste your text</label><textarea id="wordsText" rows="5" placeholder="Type here..."></textarea><button class="btn" onclick="countWords()">Count words</button>';
+    } else {
+      document.getElementById('panelTitle').textContent='Age Calculator';
+      body.innerHTML='<label>Your date of birth</label><input id="dob" type="date"><button class="btn" onclick="calcAge()">Calculate age</button>';
+    }
+    panel.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  function calcPercent(){
+    const a=Number(document.getElementById('obt').value),b=Number(document.getElementById('total').value);
+    if(!document.getElementById('obt').value||!document.getElementById('total').value||b<=0||a<0){document.getElementById('result').textContent='Please enter valid values.';return;}
+    document.getElementById('result').textContent='Percentage: '+(a/b*100).toFixed(2)+'%';
+  }
+  function countWords(){
+    const t=document.getElementById('wordsText').value.trim();
+    const words=t?t.split(/\s+/).length:0, chars=t.length, sentences=t?((t.match(/[.!?]+/g)||[]).length):0;
+    document.getElementById('result').textContent=`Words: ${words} · Characters: ${chars} · Sentences: ${sentences}`;
+  }
+  function calcAge(){
+    const v=document.getElementById('dob').value;
+    if(!v){document.getElementById('result').textContent='Please select your date of birth.';return;}
+    const birth=new Date(v+'T00:00:00'), today=new Date();
+    if(birth>today){document.getElementById('result').textContent='Date of birth cannot be in the future.';return;}
+    let y=today.getFullYear()-birth.getFullYear(),m=today.getMonth()-birth.getMonth(),d=today.getDate()-birth.getDate();
+    if(d<0){m--;d+=new Date(today.getFullYear(),today.getMonth(),0).getDate();}
+    if(m<0){y--;m+=12;}
+    document.getElementById('result').textContent=`Your age: ${y} years, ${m} months and ${d} days.`;
+  }
+</script>
+</body>
+</html>
